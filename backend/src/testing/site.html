@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent Banner Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            color: white;
+            text-align: center;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: auto;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: white;
+            background: #ff9800;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #e68900;
+        }
+        .features {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 800px;
+        }
+        .feature-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feature-box h3 {
+            margin-bottom: 10px;
+        }
+        .testimonial-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+        }
+        .testimonial {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to My Test Site</h1>
+        <p>This is a simple website to test the Consent Banner script.</p>
+        <a href="#" class="btn">Learn More</a>
+    </div>
+    <div class="features">
+        <div class="feature-box">
+            <h3>Privacy First</h3>
+            <p>We prioritize user privacy and data protection.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Customizable Banners</h3>
+            <p>Test different banner styles and settings easily.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Consent Analytics</h3>
+            <p>Track user interactions and optimize your compliance.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Seamless Integration</h3>
+            <p>Works effortlessly with any website.</p>
+        </div>
+    </div>
+    <div class="testimonial-section">
+        <h2>What Our Users Say</h2>
+        <p class="testimonial">“This consent banner is so easy to use and integrates perfectly with our site!”</p>
+        <p class="testimonial">“We love the customization options and the smooth experience.”</p>
+        <p class="testimonial">“A must-have for compliance and user transparency.”</p>
+    </div>
+    <div class="footer">
+        &copy; 2025 Consent Test Site. All rights reserved.
+    </div>
+    <!-- Load the Consent Banner Script -->
+    <script src="http://localhost:5000/api/generate-script/20"></script>
+
+    <!-- Privacy Settings Button -->
+    <button id="manageConsentBtn" class="btn">Privacy Settings</button>
+
+    <!-- Embed the Privacy Script -->
+    <script src="http://localhost:5000/privacy/embed.js"></script>
+
+
+</body>
+</html>

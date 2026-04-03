@@ -1,0 +1,59 @@
+/* Make sure the page covers full available space */
+.dashboard-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 60px);
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+}
+
+/* Dashboard-specific content container */
+.dashboard-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Header Styling */
+.dashboard-content h1 {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Card Styling */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-status {
+  margin-bottom: 20px;
+}
+
+/* Error Message */
+.dashboard-error {
+  color: #d32f2f;
+  font-size: 16px;
+  text-align: center;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Loading Text */
+.dashboard-loading {
+  color: #555;
+  font-size: 16px;
+  text-align: center;
+}

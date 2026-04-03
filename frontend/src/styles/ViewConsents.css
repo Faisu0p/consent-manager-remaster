@@ -1,0 +1,225 @@
+.view-consent-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 60px);
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #333;
+}
+
+.view-consent-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+
+/* Filter */
+.view-consent-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.view-consent-search {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+  background-color: white;
+  color: #333;
+}
+
+.view-consent-dropdown {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+}
+
+.view-consent-date-filter {
+  width: 160px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: white;
+  color: #333;
+  vertical-align: middle;
+  
+  /* Custom calendar icon */
+  background: url('calendar-icon.svg') no-repeat right 10px center;
+  background-size: 16px;
+}
+
+.view-consent-date-filter::-webkit-calendar-picker-indicator {
+  filter: invert(0.2);
+  cursor: pointer;
+}
+
+
+
+
+/* Table */
+.view-consent-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.view-consent-table th,
+.view-consent-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.view-consent-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.view-consent-btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-consent-btn:hover {
+  background-color: #0056b3;
+}
+
+.view-consent-view-btn {
+  background-color: #28a745;
+  margin-left: 8px;
+}
+
+.view-consent-view-btn:hover {
+  background-color: #1e7e34;
+}
+
+
+/* Modal */
+.view-consent-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding: 20px;
+}
+
+.view-consent-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  position: relative;
+}
+
+.view-consent-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.view-consent-close-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-consent-close-btn:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* Pagination */
+.view-consent-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.view-consent-page-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.view-consent-page-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.view-consent-page-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+
+/* Export */
+.view-consent-export {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.view-consent-export-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.view-consent-export-btn:hover {
+  background-color: #218838;
+}
+
+.view-consent-export-btn:active {
+  background-color: #1e7e34;
+}
+
+
+
+
+
+

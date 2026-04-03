@@ -1,0 +1,62 @@
+.user-tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .user-tiles-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .user-tiles-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .user-tiles-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .user-tiles-role {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  .user-tiles-role-icon {
+    margin-right: 5px;
+  }
+  
+  /* Role-based colors */
+  .user-tiles-admin {
+    color: #e63946;
+  }
+  
+  .user-tiles-customer-support {
+    color: #ff9800;
+  }
+  
+  .user-tiles-executive {
+    color: #4caf50;
+  }
+  
+  .user-tiles-it-manager {
+    color: #3f51b5;
+  }
+  
+  .user-tiles-operator {
+    color: #9c27b0;
+  }
+  

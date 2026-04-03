@@ -1,0 +1,113 @@
+/* Sidebar Container */
+.sidebar-component {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  transition: width 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+/* Expanded Sidebar */
+.sidebar-component:not(.collapsed) {
+  width: 250px;
+}
+
+/* Collapsed Sidebar */
+.sidebar-component.collapsed {
+  width: 80px;
+}
+
+/* Sidebar Wrapper - Full height container */
+.sidebar-wrapper {
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar Content - Main menu area */
+.sidebar-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+/* Consistent Menu Styling */
+.sidebar-component .pro-menu {
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.sidebar-component .pro-menu-item {
+  color: #0f172a; /* Darker text color for better visibility against white background */
+  padding: 12px 20px;
+  transition: background 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+/* Menu item link styling */
+.sidebar-component .pro-menu-item a {
+  color: #0f172a; /* Ensure links have the same dark color */
+  text-decoration: none;
+}
+
+.sidebar-component .pro-menu-item:hover {
+  background-color: #f3f4f6;
+}
+
+/* Icon styling for better visibility */
+.sidebar-component .pro-menu-item svg {
+  color: #334155; /* Slightly different color for icons */
+}
+
+/* Collapse Button - Fixed position relative to sidebar */
+.sidebar-component-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  transform: translateY(-50%);
+  background-color: #374151;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 1001;
+}
+
+.sidebar-component-toggle-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Sidebar Bottom Section */
+.sidebar-bottom-section {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+/* Version Text */
+.sidebar-version {
+  display: block;
+  padding: 8px 20px 16px;
+  color: #475569; /* Darker gray for better visibility */
+  font-size: 0.875rem;
+  background-color: #ffffff;
+}
+
+/* Collapsed state adjustments */
+.sidebar-component.collapsed .pro-menu-item {
+  text-align: center;
+}
+
+.sidebar-component.collapsed .sidebar-version {
+  text-align: center;
+  padding: 8px 5px 16px;
+}

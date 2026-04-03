@@ -1,0 +1,166 @@
+.cookie-banner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.cookie-banner-banner {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+}
+
+.cookie-banner-header {
+    background-color: #f8f8f8;
+    padding: 20px 30px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.cookie-banner-company-name {
+    font-family: Arial, sans-serif;
+    color: #1a2a3a;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+}
+
+.cookie-banner-title {
+    font-family: Arial, sans-serif;
+    color: #1a2a3a;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.cookie-banner-content {
+    padding: 20px 30px 30px;
+}
+
+.cookie-banner-intro {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.cookie-banner-link-text {
+    color: #3373cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cookie-banner-link-text:hover {
+    text-decoration: underline;
+}
+
+.cookie-banner-purposes {
+    margin-bottom: 20px;
+}
+
+.cookie-banner-purpose-item {
+    display: flex;
+    margin-bottom: 12px;
+    align-items: flex-start;
+}
+
+.cookie-banner-checkbox-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.cookie-banner-purpose-text {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.cookie-banner-details {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.cookie-banner-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cookie-banner-configure-button,
+.cookie-banner-disagree-button,
+.cookie-banner-agree-button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cookie-banner-configure-button {
+    margin-right: 10px;
+    background-color: white;
+    color: #3373cc;
+    border: 1px solid #3373cc;
+}
+
+.cookie-banner-configure-button:hover {
+    background-color: #f0f5ff;
+}
+
+.cookie-banner-disagree-button {
+    margin-right: 10px;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.cookie-banner-disagree-button:hover {
+    background-color: #e5e5e5;
+}
+
+.cookie-banner-agree-button {
+    background-color: #3373cc;
+    color: white;
+}
+
+.cookie-banner-agree-button:hover {
+    background-color: #2861b1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .cookie-banner-banner {
+        max-width: 100%;
+        border-radius: 0;
+    }
+    
+    .cookie-banner-buttons {
+        flex-direction: column;
+    }
+    
+    .cookie-banner-configure-button,
+    .cookie-banner-disagree-button {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

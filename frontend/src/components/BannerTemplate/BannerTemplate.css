@@ -1,0 +1,106 @@
+.banner-template-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+.banner-template-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.banner-template-tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.banner-template-tabs button {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s;
+    color: #000;
+}
+
+.banner-template-tabs .banner-template-active {
+    border-bottom: 3px solid #007bff;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.banner-template-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.banner-template-form input,
+.banner-template-form textarea {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #000;
+    background: #fff;
+}
+
+.banner-template-form button {
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.banner-template-form button:hover {
+    background: #0056b3;
+}
+
+
+
+
+.banner-template-language-selection, 
+.banner-template-parent-template-selection {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.banner-template-language-selection label, 
+.banner-template-parent-template-selection label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.banner-template-language-selection select, 
+.banner-template-parent-template-selection select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.banner-template-language-selection select:focus, 
+.banner-template-parent-template-selection select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

@@ -1,0 +1,65 @@
+.header-component {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 1100;
+}
+
+/* Logo */
+.header-component-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-component-logo-icon {
+  color: #4a90e2;
+  margin-right: 10px;
+}
+
+.header-component-app-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Search */
+.header-component-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #e9ecef;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.header-component-search:hover {
+  background: #d6d6d6;
+}
+
+/* Icons */
+.header-component-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-component-icon {
+  color: #555;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.header-component-icon:hover {
+  color: #1d72b8;
+}

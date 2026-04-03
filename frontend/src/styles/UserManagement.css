@@ -1,0 +1,364 @@
+.user-management-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f5f7fa;
+}
+
+.user-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2196F3;
+    color: white;
+    padding: 20px 24px;
+    border-radius: 8px 8px 0 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.user-management-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.user-management-header-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.user-management-search-box {
+    position: relative;
+    margin-right: 8px;
+}
+
+.user-management-icon-search {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 14px;
+}
+
+.user-management-icon-search:before {
+    content: "🔍";
+}
+
+.user-management-search-input {
+    padding: 8px 12px 8px 32px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    min-width: 220px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: #333;
+}
+
+.user-management-btn {
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.user-management-btn:hover {
+    transform: translateY(-1px);
+}
+
+.user-management-btn:active {
+    transform: translateY(0);
+}
+
+.user-management-btn-export {
+    background-color: white;
+    color: #333;
+}
+
+.user-management-btn-export:hover {
+    background-color: #f8f9fa;
+}
+
+.user-management-btn-add {
+    background-color: #18a0fb;
+    color: white;
+}
+
+.user-management-btn-add:hover {
+    background-color: #0d8ee9;
+}
+
+.user-management-btn i {
+    margin-right: 8px;
+}
+
+.user-management-icon-export:before {
+    content: "📥";
+}
+
+.user-management-icon-add:before {
+    content: "+";
+}
+
+.user-management-icon-edit:before {
+    content: "✏️";
+}
+
+.user-management-icon-delete:before {
+    content: "🗑️";
+}
+
+.user-management-table-container {
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.user-management-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.user-management-table th, 
+.user-management-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+}
+
+.user-management-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4a5568;
+}
+
+.user-management-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.user-management-user-cell {
+    display: flex;
+    align-items: center;
+}
+
+.user-management-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ebf4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #4299e1;
+    margin-right: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-management-user-name {
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.user-management-status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.user-management-status-active {
+    background-color: #48bb78;
+}
+
+.user-management-status-suspended {
+    background-color: #f56565;
+}
+
+.user-management-status-inactive {
+    background-color: #ecc94b;
+    color: #744210;
+}
+
+.user-management-role-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.user-management-role-admin {
+    background-color: #e9d8fd;
+    color: #553c9a;
+}
+
+.user-management-role-editor {
+    background-color: #bee3f8;
+    color: #2c5282;
+}
+
+.user-management-role-user {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+.user-management-action-cell {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.user-management-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.user-management-action-btn:hover {
+    background-color: #f7fafc;
+}
+
+.user-management-edit-btn {
+    color: #3182ce;
+}
+
+.user-management-edit-btn:hover {
+    background-color: #ebf8ff;
+}
+
+.user-management-delete-btn {
+    color: #e53e3e;
+}
+
+.user-management-delete-btn:hover {
+    background-color: #fed7d7;
+}
+
+.user-management-empty-state {
+    text-align: center !important;
+    padding: 40px !important;
+}
+
+.user-management-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-management-icon-search-large {
+    font-size: 32px;
+    color: #cbd5e0;
+    margin-bottom: 12px;
+}
+
+.user-management-icon-search-large:before {
+    content: "🔍";
+}
+
+.user-management-empty-title {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.user-management-empty-message {
+    margin: 0;
+    font-size: 14px;
+    color: #a0aec0;
+}
+
+.user-management-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #edf2f7;
+    border-radius: 0 0 8px 8px;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .user-management-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .user-management-header-buttons {
+        margin-top: 12px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .user-management-search-box {
+        width: 100%;
+        margin-bottom: 12px;
+        margin-right: 0;
+    }
+    
+    .user-management-search-input {
+        width: 100%;
+    }
+    
+    .user-management-table th, 
+    .user-management-table td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+    
+    .user-management-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .user-management-container {
+        padding: 12px;
+    }
+    
+    .user-management-header h1 {
+        font-size: 20px;
+    }
+    
+    .user-management-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}

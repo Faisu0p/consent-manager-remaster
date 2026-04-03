@@ -1,0 +1,86 @@
+.partner-tab-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.partner-tab-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.partner-tab-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.partner-tab-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.partner-tab-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.partner-tab-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.partner-tab-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.partner-tab-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .partner-tab-checkbox {
+    width: 16px;
+    height: 16px;
+  }
+  
+
+.partner-tab-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.partner-tab-submit:hover {
+    background: #0056b3;
+    transform: scale(1.02);
+}

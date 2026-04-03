@@ -1,0 +1,104 @@
+/* Container */
+.consent-management-container {
+  width: 100%;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Header */
+.consent-management-header h2 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Main Body */
+.consent-management-body {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Left Section (Dropdown) */
+.consent-management-dropdown {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+.consent-management-dropdown label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.consent-management-dropdown select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+  background-color: white;
+}
+
+/* Right Section (Preview and Actions) */
+.consent-management-preview-container {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.consent-management-preview {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.consent-management-button-container {
+  text-align: center;
+}
+
+.consent-management-generate-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.consent-management-generate-button:hover {
+  background-color: #0056b3;
+}
+
+.consent-management-generate-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Script Output */
+.consent-management-script-output {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e3f2fd;
+  border-radius: 5px;
+}
+
+.consent-management-script-output textarea {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
