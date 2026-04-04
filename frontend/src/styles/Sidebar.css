@@ -171,19 +171,23 @@
   .sidebar-component {
     top: 56px;
     height: calc(100vh - 56px);
-    width: 80px;
+    width: 250px;
+    transform: translateX(0);
+    transition: transform 0.24s ease;
   }
 
   .sidebar-component.collapsed {
-    width: 80px;
+    width: 250px;
+    transform: translateX(-100%);
   }
 
   .sidebar-component:not(.collapsed) {
-    width: 240px;
+    width: 250px;
+    transform: translateX(0);
   }
 
   .sidebar-component-toggle-btn {
-    right: -14px;
+    right: -12px;
     width: 28px;
     height: 28px;
   }

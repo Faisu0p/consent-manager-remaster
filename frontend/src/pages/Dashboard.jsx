@@ -41,8 +41,6 @@ const Dashboard = () => {
       <div className="dashboard-content">
         <h1>Welcome to the KONSENTO Dashboard</h1>
 
-_____________________________________________________________________________________________________________________________________________________________________________________________
-
         <div className="dashboard-grid">
           <ConsentOverview />
           <AnalyticsReports />
