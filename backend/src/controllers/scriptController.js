@@ -676,15 +676,15 @@ window.saveCredentials = function() {
 
                     // Modal styling
                     modal.style.position = "fixed";
-                    modal.style.top = "10vh";
+                    modal.style.top = "50%";
                     modal.style.left = "50%";
-                    modal.style.transform = "translate(-50%)";
+                    modal.style.transform = "translate(-50%, -50%)";
                     modal.style.backgroundColor = "#fff";
                     modal.style.padding = "20px";
                     modal.style.borderRadius = "10px";
                     modal.style.boxShadow = "0 4px 10px rgba(0, 0, 0, 0.2)";
                     modal.style.zIndex = "10001"; // Higher than the banner
-                    modal.style.width = "90vh";
+                    modal.style.width = "90vw";
                     modal.style.maxWidth = "500px";
                     modal.style.maxHeight = "80vh"; // Prevents overflow
                     modal.style.overflowY = "auto";
