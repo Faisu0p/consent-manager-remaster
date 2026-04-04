@@ -15,7 +15,8 @@
   .view-consent-container,
   .customization-container,
   .modify-banner-container,
-  .cs-container
+  .cs-container,
+  .email-suppression-container
 ) {
   width: 100%;
   min-height: auto;

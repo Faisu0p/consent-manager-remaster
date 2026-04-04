@@ -1,0 +1,187 @@
+.email-suppression-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.email-suppression-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.email-suppression-summary-card {
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 0.72rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.email-suppression-summary-card span {
+  color: #64748b;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.email-suppression-summary-card strong {
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.email-suppression-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.email-suppression-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.6rem;
+  align-items: end;
+}
+
+.email-suppression-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.email-suppression-input-group label {
+  font-size: 0.76rem;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.email-suppression-input-group input,
+.email-suppression-search-wrap input {
+  width: 100%;
+  padding: 0.52rem 0.62rem;
+  border: 1px solid #cfd8e8;
+  border-radius: 9px;
+  background-color: #ffffff;
+  color: #1f2937;
+  font-size: 0.82rem;
+}
+
+.email-suppression-input-group input:focus,
+.email-suppression-search-wrap input:focus {
+  outline: none;
+  border-color: rgba(15, 118, 110, 0.55);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.email-suppression-add-btn,
+.email-suppression-delete-btn {
+  border: 1px solid #dbe3ef;
+  background: #ffffff;
+  color: #334155;
+  border-radius: 9px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+.email-suppression-add-btn {
+  background: linear-gradient(120deg, var(--cm-primary) 0%, #0891b2 100%);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.email-suppression-delete-btn {
+  color: #b91c1c;
+  border-color: #fecaca;
+  background: #fff7f7;
+}
+
+.email-suppression-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.email-suppression-search-icon {
+  position: absolute;
+  left: 0.6rem;
+  color: #94a3b8;
+}
+
+.email-suppression-search-wrap input {
+  padding-left: 1.8rem;
+}
+
+.email-suppression-status {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.email-suppression-status.success {
+  color: #047857;
+}
+
+.email-suppression-status.error {
+  color: #b91c1c;
+}
+
+.email-suppression-table-wrap {
+  overflow: auto;
+  padding: 0;
+}
+
+.email-suppression-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.email-suppression-table th,
+.email-suppression-table td {
+  border-bottom: 1px solid #eef2f8;
+  padding: 0.72rem 0.65rem;
+  text-align: left;
+  font-size: 0.82rem;
+  color: #334155;
+}
+
+.email-suppression-table th {
+  background-color: #f8fbff;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+}
+
+.email-suppression-table th:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.email-suppression-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+@media screen and (max-width: 920px) {
+  .email-suppression-form {
+    grid-template-columns: 1fr;
+  }
+
+  .email-suppression-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

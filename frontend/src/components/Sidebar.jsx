@@ -1,6 +1,6 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiUsers, FiSettings, FiLogOut, FiBarChart, FiClipboard, FiShield, FiHome, FiHeadphones, FiLayers } from "react-icons/fi";
+import { FiUsers, FiSettings, FiLogOut, FiBarChart, FiClipboard, FiShield, FiHome, FiHeadphones, FiLayers, FiMail } from "react-icons/fi";
 
 import { logout } from "../services/authService";
 
@@ -18,6 +18,7 @@ const SidebarComponent = ({ isCollapsed, toggleSidebar }) => {
     { label: "Audit Logs", path: "/audit-logs", icon: <FiClipboard size={18} /> },
     { label: "Reports & Analytics", path: "/reports", icon: <FiBarChart size={18} /> },
     { label: "Customer Support", path: "/customer-support", icon: <FiHeadphones size={18} /> },
+    { label: "Email Suppression", path: "/email-suppression", icon: <FiMail size={18} /> },
   ];
 
   const isRouteActive = (path) => {

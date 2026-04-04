@@ -12,6 +12,7 @@ import ViewConsents from "./pages/ViewConsents";
 import MyConsent from "./pages/MyConsent";
 import ModifyBanner from "./pages/ModifyBanner";
 import CustomerSupport from "./pages/CustomerSupport";
+import EmailSuppression from "./pages/EmailSuppression";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="view-consents" element={<ViewConsents />} />
         <Route path="modify-banner" element={<ModifyBanner />} />
         <Route path="customer-support" element={<CustomerSupport />} />
+        <Route path="email-suppression" element={<EmailSuppression />} />
       </Route>
 
       <Route path="my-consent" element={<MyConsent />} />
