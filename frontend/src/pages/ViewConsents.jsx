@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Download, Filter, RotateCcw, Search } from "lucide-react";
+import { CalendarDays, Download, Filter, RotateCcw, Search, UserRound, X } from "lucide-react";
 import consentService from "../services/consentService";
 import "../styles/ViewConsents.css";
 
@@ -296,7 +296,6 @@ const ViewConsent = () => {
                   <td>{new Date(row.consent_date).toLocaleDateString("en-GB")}</td>
                   <td>
                     <div className="view-consent-actions-cell">
-                      <button className="view-consent-btn">Modify</button>
                       <button className="view-consent-btn view-consent-view-btn" onClick={() => openModal(row)}>View</button>
                     </div>
                   </td>
@@ -316,34 +315,78 @@ const ViewConsent = () => {
       {/*Modal for viewing consent details*/}
       {isModalOpen && selectedConsent && (
         <div className="view-consent-modal" onClick={closeModal}>
-          <div className="view-consent-modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="view-consent-close" onClick={closeModal}>&times;</span>
-            <h2>Consent Details</h2>
-            <p><strong>Consent ID:</strong> {selectedConsent.consent_id}</p>
-            <p><strong>User ID:</strong> {selectedConsent.user_id}</p>
-            <p><strong>User Email:</strong> {selectedConsent.user_email}</p>
-            <p><strong>Template:</strong> {selectedConsent.template_name}</p>
-            <p><strong>Categories & Subcategories:</strong></p>
-            <ul>
-              {(selectedConsent.categories || []).map((category) => (
-                <li key={category.category_id}>
-                  <strong>{category.category_name}</strong>
-                  {category.subcategories && category.subcategories.length > 0 ? (
-                    <ul>
-                      {category.subcategories.map((sub) => (
-                        <li key={sub.subcategory_id}>{sub.subcategory_name}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>- No subcategories -</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <p><strong>Partners:</strong> {selectedConsent.partner_names || "-"}</p>
-            <p><strong>Status:</strong> {selectedConsent.consent_status ? "✅ Accepted" : "❌ Rejected"}</p>
-            <p><strong>Consent Date:</strong> {new Date(selectedConsent.consent_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            <button className="view-consent-close-btn" onClick={closeModal}>Close</button>
+          <div className="view-consent-modal-content" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Consent details dialog">
+            <button className="view-consent-close-icon" onClick={closeModal} aria-label="Close dialog">
+              <X size={16} />
+            </button>
+
+            <div className="view-consent-modal-header">
+              <h2>Consent Details</h2>
+              <span className={`view-consent-status-badge ${selectedConsent.consent_status ? "accepted" : "rejected"}`}>
+                {selectedConsent.consent_status ? "Accepted" : "Rejected"}
+              </span>
+            </div>
+
+            <div className="view-consent-modal-meta">
+              <div className="view-consent-meta-item">
+                <UserRound size={14} />
+                <span>Consent #{selectedConsent.consent_id}</span>
+              </div>
+              <div className="view-consent-meta-item">
+                <CalendarDays size={14} />
+                <span>
+                  {new Date(selectedConsent.consent_date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+            </div>
+
+            <div className="view-consent-modal-grid">
+              <div className="view-consent-detail-card">
+                <h3>Identity</h3>
+                <p><strong>User ID:</strong> {selectedConsent.user_id}</p>
+                <p><strong>Email:</strong> {selectedConsent.user_email || "-"}</p>
+                <p><strong>Template:</strong> {selectedConsent.template_name || "-"}</p>
+              </div>
+
+              <div className="view-consent-detail-card">
+                <h3>Partners</h3>
+                <p>{selectedConsent.partner_names || "No partners selected"}</p>
+              </div>
+            </div>
+
+            <div className="view-consent-categories-card">
+              <h3>Categories and Subcategories</h3>
+              {(selectedConsent.categories || []).length === 0 ? (
+                <p className="view-consent-no-items">No categories available for this consent.</p>
+              ) : (
+                <div className="view-consent-category-list">
+                  {(selectedConsent.categories || []).map((category) => (
+                    <div key={category.category_id} className="view-consent-category-item">
+                      <strong>{category.category_name}</strong>
+                      {category.subcategories && category.subcategories.length > 0 ? (
+                        <div className="view-consent-subcategory-list">
+                          {category.subcategories.map((sub) => (
+                            <span key={sub.subcategory_id} className="view-consent-subcategory-chip">
+                              {sub.subcategory_name}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="view-consent-no-items">No subcategories.</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="view-consent-modal-actions">
+              <button className="view-consent-close-btn" onClick={closeModal}>Close</button>
+            </div>
           </div>
         </div>
       )}
