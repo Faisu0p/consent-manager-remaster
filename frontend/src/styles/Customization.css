@@ -1,70 +1,85 @@
 .customization-container {
   flex-grow: 1;
   width: 100%;
-  min-height: calc(100vh - 60px);
-  background-color: white;
-  padding: 20px;
+  min-height: auto;
+  background-color: transparent;
+  padding: 0;
   display: flex;
   flex-direction: column;
 }
 
 .customization-main {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  height: calc(100vh - 170px);
+  min-height: 620px;
 }
 
 /* Left and right each take equal width */
 .customization-main > * {
-  flex: 1;
+  min-width: 0;
 }
 
 /* Vertical centering for right-side preview */
 .preview-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: stretch;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 14px;
+  padding: 0.9rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  position: sticky;
+  top: 0;
+  height: 100%;
+  max-height: none;
+  overflow: auto;
 }
 
 
 /* Buttons centered under the main area */
 .customization-buttons {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 0.8rem;
+  border-top: 1px solid #dbe3ef;
 }
 
 /* Button styles */
 .display-banner-btn,
 .submit-banner-btn {
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: 0.62rem 0.95rem;
+  font-size: 0.87rem;
+  font-weight: 700;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .display-banner-btn {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #dbe3ef;
+  color: #334155;
 }
 
 .display-banner-btn:hover {
-  background-color: #e0e0e0;
+  background-color: #f8fbff;
 }
 
 .submit-banner-btn {
-  background-color: #007bff;
+  background: linear-gradient(120deg, var(--cm-primary) 0%, #0891b2 100%);
   color: #fff;
 }
 
 .submit-banner-btn:hover {
-  background-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.25);
 }
 
 .submit-banner-btn:disabled {
@@ -73,8 +88,29 @@
 }
 
 .api-message {
-  text-align: center;
+  text-align: right;
   margin-top: 10px;
-  font-weight: bold;
-  color: green;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+@media screen and (max-width: 1100px) {
+  .customization-main {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .preview-wrapper {
+    position: static;
+    max-height: none;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .customization-buttons {
+    justify-content: stretch;
+    flex-direction: column;
+  }
 }

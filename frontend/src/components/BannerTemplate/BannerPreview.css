@@ -1,50 +1,61 @@
 /* Banner Preview container styles */
 .preview-component-banner-preview {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #f8fbff;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #dbe3ef;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
     width: 100%;
-    max-width: 600px;
-    margin: 20px auto;
+    max-width: none;
+    margin: 0;
     color: #333;
+}
+
+.preview-component-banner-preview h3 {
+    margin-top: 0;
+    margin-bottom: 0.65rem;
+    font-size: 0.95rem;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 /* Template preview section */
 .preview-component-template-preview h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 1.25rem;
     margin-bottom: 10px;
 }
 
 .preview-component-template-preview h4 {
     text-align: center;
-    font-size: 20px;
+    font-size: 1rem;
     margin-bottom: 10px;
 }
 
 .preview-component-template-preview p {
     text-align: center;
-    font-size: 16px;
-    margin-bottom: 15px;
+    font-size: 0.88rem;
+    margin-bottom: 12px;
     line-height: 1.5;
 }
 
 /* Button styling */
 .preview-component-buttons {
     display: flex;
-    justify-content: space-around;
-    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .preview-component-buttons button {
-    padding: 10px 20px;
+    padding: 8px 12px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 0.78rem;
     transition: background-color 0.3s;
 }
 
@@ -61,7 +72,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 10px;
+    padding: 8px;
     background: #f8f9fa;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -91,7 +102,7 @@
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 12px;
     color: #444;
     width: 100%;
     max-width: 500px;
@@ -102,7 +113,7 @@
 .preview-component-subcategories-list {
     margin-top: 5px;
     margin-left: 30px; /* Adjust indentation */
-    font-size: 12px;
+    font-size: 11px;
     color: #555;
     list-style-type: disc; /* Bulleted list */
     padding-left: 20px;
@@ -119,7 +130,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 14px;
+    font-size: 13px;
     margin: 5px 0;
   }
   
@@ -140,6 +151,12 @@
     font-weight: bold;
     margin-left: 5px;
   }
+
+@media screen and (max-width: 640px) {
+        .preview-component-banner-preview {
+                padding: 0.8rem;
+        }
+}
   
   
   

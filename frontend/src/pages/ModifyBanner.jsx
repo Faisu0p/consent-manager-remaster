@@ -166,14 +166,12 @@ const ModifyBanner = () => {
 
   return (
     <div className="modify-banner-container enterprise-page">
-      
-      {/* Section Heading */}
-      <h1 className="modify-banner-heading">Modify Banner Section</h1>
-      <p className="modify-banner-description">
-        Here you can modify existing banners by adding categories or subcategories.
-        Here you can modify existing banners by adding categories or subcategories.
-        Here you can modify existing banners by adding categories or subcategories.
-      </p>
+      <div className="modify-banner-header enterprise-page-header">
+        <h1 className="modify-banner-heading enterprise-page-title">Modify Banner</h1>
+        <p className="modify-banner-description enterprise-page-subtitle">
+          Select an existing template and update categories, subcategories, and mandatory consent behavior.
+        </p>
+      </div>
       
       {/* Dropdown for Template Selection */}
       <div className="modify-banner-dropdown-container">

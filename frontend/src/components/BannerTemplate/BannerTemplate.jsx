@@ -12,6 +12,29 @@ const BannerTemplate = ({ bannerData, setBannerData, activeTab, setActiveTab }) 
     const [englishTemplates, setEnglishTemplates] = useState([]);
     const [parentTemplateId, setParentTemplateId] = useState("");
 
+    const steps = [
+        { id: "templates", label: "Consent Template" },
+        { id: "portal", label: "Preceding Notice" },
+        { id: "categories", label: "Lawful Purposes" },
+        { id: "subcategories", label: "Itemised Description" },
+        { id: "partners", label: "Data Processor Details" }
+    ];
+
+    const activeStepIndex = steps.findIndex((step) => step.id === activeTab);
+    const completedPercentage = activeStepIndex >= 0 ? ((activeStepIndex + 1) / steps.length) * 100 : 0;
+
+    const goToPreviousStep = () => {
+        if (activeStepIndex > 0) {
+            setActiveTab(steps[activeStepIndex - 1].id);
+        }
+    };
+
+    const goToNextStep = () => {
+        if (activeStepIndex < steps.length - 1) {
+            setActiveTab(steps[activeStepIndex + 1].id);
+        }
+    };
+
     const languages = [
         { code: "en", name: "English" },
         { code: "hi", name: "Hindi" },
@@ -56,14 +79,36 @@ const BannerTemplate = ({ bannerData, setBannerData, activeTab, setActiveTab }) 
 
     return (
         <div className="banner-template-container">
-            <h2 className="banner-template-title">Consent Template Management</h2>
-            <div className="banner-template-tabs">
-                <button onClick={() => setActiveTab("templates")} disabled={!selectedLanguage} className={activeTab === "templates" ? "banner-template-active" : ""}>Consent Template</button>
-                <button onClick={() => setActiveTab("portal")} disabled={!selectedLanguage} className={activeTab === "portal" ? "banner-template-active" : ""}>Preceding Notice</button>
-                <button onClick={() => setActiveTab("categories")} disabled={!selectedLanguage} className={activeTab === "categories" ? "banner-template-active" : ""}>Lawful Purposes</button>
-                <button onClick={() => setActiveTab("subcategories")} disabled={!selectedLanguage} className={activeTab === "subcategories" ? "banner-template-active" : ""}>Itemised Description</button>
-                <button onClick={() => setActiveTab("partners")} disabled={!selectedLanguage} className={activeTab === "partners" ? "banner-template-active" : ""}>Data Processor Details</button>
+            <div className="banner-template-header">
+                <h2 className="banner-template-title">Create Banner Workflow</h2>
+                <p className="banner-template-subtitle">Complete each step to configure the banner and review updates live.</p>
             </div>
+
+            <div className="banner-template-tabs">
+                {steps.map((step, index) => (
+                    <button
+                        key={step.id}
+                        onClick={() => setActiveTab(step.id)}
+                        disabled={!selectedLanguage}
+                        className={activeTab === step.id ? "banner-template-active" : ""}
+                    >
+                        <span className="banner-template-step-index">{index + 1}</span>
+                        <span>{step.label}</span>
+                    </button>
+                ))}
+            </div>
+
+            {selectedLanguage && (
+                <div className="banner-template-progress">
+                    <div className="banner-template-progress-meta">
+                        <span>Step {activeStepIndex + 1} of {steps.length}</span>
+                        <span>{Math.round(completedPercentage)}% complete</span>
+                    </div>
+                    <div className="banner-template-progress-track">
+                        <div className="banner-template-progress-fill" style={{ width: `${completedPercentage}%` }}></div>
+                    </div>
+                </div>
+            )}
 
             <div className="banner-template-language-selection">
                 <label>Select Language:</label>
@@ -104,6 +149,13 @@ const BannerTemplate = ({ bannerData, setBannerData, activeTab, setActiveTab }) 
                     {activeTab === "categories" && <CategoryTab bannerData={bannerData} setBannerData={setBannerData} setActiveTab={setActiveTab}/>}
                     {activeTab === "subcategories" && <SubcategoryTab bannerData={bannerData} setBannerData={setBannerData} setActiveTab={setActiveTab}/>}
                     {activeTab === "partners" && <PartnerTab bannerData={bannerData} setBannerData={setBannerData} />}
+                </div>
+            )}
+
+            {selectedLanguage && (
+                <div className="banner-template-footer-nav">
+                    <button type="button" onClick={goToPreviousStep} disabled={activeStepIndex <= 0}>Back</button>
+                    <button type="button" onClick={goToNextStep} disabled={activeStepIndex >= steps.length - 1}>Next</button>
                 </div>
             )}
         </div>
