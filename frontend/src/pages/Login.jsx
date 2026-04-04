@@ -11,6 +11,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -22,16 +23,16 @@ const Login = () => {
       return;
     }
 
+    setErrorMessage('');
+    setIsSubmitting(true);
+
     try {
-      // Send login request to your backend API using Axios
       const response = await api.post('users/login', { email, password });
 
       if (response.status === 200) {
-        // Successful login, save token to localStorage
-        localStorage.setItem('authToken', response.data.token); // Assuming the token is in response.data.token
-        navigate('/dashboard'); // Redirect to dashboard
+        localStorage.setItem('authToken', response.data.token);
+        navigate('/dashboard');
       } else {
-        // Handle error if login fails
         setErrorMessage(response.data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
@@ -39,6 +40,8 @@ const Login = () => {
       const apiMessage = error?.response?.data?.error || error?.response?.data?.message;
       const validationMessage = error?.response?.data?.errors?.[0]?.msg;
       setErrorMessage(apiMessage || validationMessage || 'An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,41 +51,46 @@ const Login = () => {
 
   return (
     <div className="cm-login-page">
-      {/* Left side with illustration */}
       <div className="cm-login-illustration">
         <div className="cm-login-logo">
           <Rocket className="cm-login-logo-icon" />
           <span className="cm-login-logo-text">KONSENTO</span>
         </div>
+
+        <div className="cm-login-hero-copy">
+          <p className="cm-login-hero-kicker">Privacy operations center</p>
+          <h1 className="cm-login-hero-title">Give users control. Keep compliance effortless.</h1>
+          <p className="cm-login-hero-description">
+            Manage consent records, template experiences, and audit logs from one focused dashboard.
+          </p>
+        </div>
         
         <div className="cm-login-illustration-container">
-          <img 
-            src={login_background} 
-            alt="Login illustration" 
+          <img
+            src={login_background}
+            alt="Login illustration"
             className="cm-login-illustration-image"
           />
         </div>
         
-        {/* Decorative elements */}
         <div className="cm-login-decorative-shape cm-login-shape-1"></div>
         <div className="cm-login-decorative-shape cm-login-shape-2"></div>
         <div className="cm-login-decorative-shape cm-login-shape-3"></div>
       </div>
-      
-      {/* Right side with login form */}
+
       <div className="cm-login-form-container">
         <div className="cm-login-form-wrapper">
           <div className="cm-login-header">
-            <h2 className="cm-login-title">Welcome to KONSENTO! 👋</h2>
-            <p className="cm-login-subtitle">Please sign-in to your account and start the adventure</p>
+            <h2 className="cm-login-title">Welcome back</h2>
+            <p className="cm-login-subtitle">Sign in to continue managing your consent operations.</p>
           </div>
-          
+
           {errorMessage && (
             <div className="cm-login-error-message">
               {errorMessage}
             </div>
           )}
-          
+
           <form onSubmit={handleLogin} className="cm-login-form">
             <div className="cm-login-form-group">
               <label htmlFor="email" className="cm-login-form-label">Email or Username</label>
@@ -119,6 +127,7 @@ const Login = () => {
                   type="button"
                   className="cm-login-password-toggle"
                   onClick={togglePasswordVisibility}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
                     <EyeOff className="cm-login-icon" />
@@ -155,12 +164,13 @@ const Login = () => {
               <button
                 type="submit"
                 className="cm-login-button"
+                disabled={isSubmitting}
               >
-                Login
+                {isSubmitting ? 'Signing in...' : 'Sign In'}
               </button>
             </div>
           </form>
-          
+
           <div className="cm-login-footer">
             <div className="cm-login-divider">
               <span className="cm-login-divider-text">or</span>

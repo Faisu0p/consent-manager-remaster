@@ -3,15 +3,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #333;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  color: var(--cm-text);
   position: fixed;
   top: 0;
   left: 0;
   height: 60px;
   z-index: 1100;
+  border-bottom: 1px solid rgba(219, 227, 239, 0.7);
 }
 
 /* Logo */
@@ -21,14 +23,15 @@
 }
 
 .header-component-logo-icon {
-  color: #4a90e2;
+  color: var(--cm-primary);
   margin-right: 10px;
 }
 
 .header-component-app-name {
   font-size: 1.3rem;
-  font-weight: bold;
-  color: #333;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--cm-text);
 }
 
 /* Search */
@@ -37,14 +40,16 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: #e9ecef;
+  background: var(--cm-surface-soft);
   padding: 8px;
   border-radius: 50%;
-  transition: background 0.3s;
+  border: 1px solid var(--cm-border);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .header-component-search:hover {
-  background: #d6d6d6;
+  background: #e4ebff;
+  transform: translateY(-1px);
 }
 
 /* Icons */
@@ -55,11 +60,26 @@
 }
 
 .header-component-icon {
-  color: #555;
-  transition: color 0.3s;
+  color: #475569;
+  transition: color 0.3s ease;
   cursor: pointer;
 }
 
 .header-component-icon:hover {
-  color: #1d72b8;
+  color: var(--cm-primary);
+}
+
+@media screen and (max-width: 640px) {
+  .header-component {
+    height: 56px;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .header-component-app-name {
+    font-size: 1.05rem;
+  }
+
+  .header-component-icons {
+    gap: 0.6rem;
+  }
 }
