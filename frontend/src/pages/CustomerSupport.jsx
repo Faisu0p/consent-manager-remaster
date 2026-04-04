@@ -132,7 +132,7 @@ const CustomerSupport = () => {
   
 
   return (
-    <div className="cs-container">
+    <div className="cs-container enterprise-page">
       <header className="cs-header">
         <div className="cs-header-content">
           <h1>Customer Support Portal</h1>

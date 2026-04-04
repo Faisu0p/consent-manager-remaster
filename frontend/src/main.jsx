@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';  // Import Router for routing
 import './index.css';
+import './styles/Enterprise.css';
 import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(

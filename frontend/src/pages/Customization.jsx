@@ -70,7 +70,7 @@ const Customization = () => {
       };
       
     return (
-      <div className="customization-container">
+      <div className="customization-container enterprise-page">
         <div className="customization-main">
           <BannerTemplate
             bannerData={bannerData}

@@ -165,7 +165,7 @@ const ModifyBanner = () => {
   
 
   return (
-    <div className="modify-banner-container">
+    <div className="modify-banner-container enterprise-page">
       
       {/* Section Heading */}
       <h1 className="modify-banner-heading">Modify Banner Section</h1>

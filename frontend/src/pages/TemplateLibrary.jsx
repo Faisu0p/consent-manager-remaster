@@ -23,13 +23,12 @@ const TemplateLibrary = () => {
   };
 
   return (
-    <div className="template-library-container">
-      <div className="template-library-header">
-        <h1>Template Library</h1>
-        <p className="subtitle">
+    <div className="template-library-container enterprise-page">
+      <div className="template-library-header enterprise-page-header">
+        <h1 className="enterprise-page-title">Template Library</h1>
+        <p className="subtitle enterprise-page-subtitle">
           Manage your templates, customize banners, and preview configurations — all in one place.
         </p>
-        <p className="subtitle">_________________________________________________________________________________________________________________________________________________________________________________________</p>
       </div>
 
       <div className="template-library-tabs">

@@ -233,7 +233,7 @@ useEffect(() => {
   
 
   return (
-    <div className="myconsent-portal-container">
+    <div className="myconsent-portal-container enterprise-page">
 
       {/* Header */}
       <header className="myconsent-portal-header">

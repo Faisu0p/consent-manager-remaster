@@ -37,9 +37,12 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container enterprise-page">
       <div className="dashboard-content">
-        <h1>Welcome to the KONSENTO Dashboard</h1>
+        <div className="enterprise-page-header">
+          <h1 className="enterprise-page-title">Dashboard Overview</h1>
+          <p className="enterprise-page-subtitle">Track consent operations, compliance health, and user activity in one place.</p>
+        </div>
 
         <div className="dashboard-grid">
           <ConsentOverview />

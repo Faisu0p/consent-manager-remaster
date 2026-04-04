@@ -150,8 +150,8 @@ const ViewConsent = () => {
   
 
   return (
-    <div className="view-consent-container">
-      <h1 className="view-consent-title">Hello, World! This is View Consent Page</h1>
+    <div className="view-consent-container enterprise-page">
+      <h1 className="view-consent-title enterprise-page-title">View Consents</h1>
 
       {/*Search and filter bar*/}
       <div className="view-consent-filter">
