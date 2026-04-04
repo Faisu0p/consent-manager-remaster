@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Audit.css";
+import AccessLogsTable from "../components/AccessLogsTable";
 
 const Audit = () => {
   return (
@@ -8,8 +9,11 @@ const Audit = () => {
         <h1 className="enterprise-page-title">Audit Logs</h1>
         <p className="enterprise-page-subtitle">Monitor immutable activity records across consent and user-management workflows.</p>
       </div>
-      <section className="enterprise-panel">
-        <p className="enterprise-empty-state">Audit log analytics and timeline controls are ready for integration.</p>
+
+      <section className="audit-section enterprise-panel">
+        <h2 className="audit-section-title">Access Log Timeline</h2>
+        <p className="audit-section-subtitle">Review account-level actions and system access events with pagination support.</p>
+        <AccessLogsTable />
       </section>
     </div>
   );

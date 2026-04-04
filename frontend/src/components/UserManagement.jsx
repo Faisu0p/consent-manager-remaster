@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Search, Download, UserPlus, Pencil, Trash2, Users, UserCheck, UserX } from 'lucide-react';
 import { getAllUsers, deleteUser, createUser } from '../services/userServices';
 import AddUserForm from './AddUserForm';
 import '../styles/UserManagement.css';
@@ -51,15 +52,15 @@ const UserManagement = () => {
   const handleAddUser = async (newUser) => {
     try {
       await createUser(newUser);
-  
+
       setSuccessMessage("User added successfully!");
-  
+
       // Fetch the updated user list
       await fetchUsers();
-  
+
       setTimeout(() => {
         setShowAddUserForm(false);
-        setSuccessMessage("Adding user...");
+        setSuccessMessage("");
       }, 2000);
     } catch (error) {
       console.error("Error adding user:", error);
@@ -87,18 +88,40 @@ const UserManagement = () => {
     ? users.filter(user => 
         user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.status.toLowerCase().includes(searchTerm.toLowerCase())
+        (user.role || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (user.status || "").toLowerCase().includes(searchTerm.toLowerCase())
       )
     : users;
+
+  const activeCount = users.filter((user) => user.status === 'Active').length;
+  const suspendedCount = users.filter((user) => user.status === 'Suspended').length;
 
   return (
     <div className="user-management-container">
       <div className="user-management-header">
-        <h1>User Management</h1>
+        <div className="user-management-title-group">
+          <h1>User Management</h1>
+          <p>Provision, review, and maintain operator access controls.</p>
+        </div>
+
+        <div className="user-management-metrics">
+          <div className="user-management-metric-card">
+            <Users size={16} />
+            <span>{users.length} total</span>
+          </div>
+          <div className="user-management-metric-card">
+            <UserCheck size={16} />
+            <span>{activeCount} active</span>
+          </div>
+          <div className="user-management-metric-card">
+            <UserX size={16} />
+            <span>{suspendedCount} suspended</span>
+          </div>
+        </div>
+
         <div className="user-management-header-buttons">
           <div className="user-management-search-box">
-            <i className="user-management-icon-search"></i>
+            <Search size={15} className="user-management-search-icon" />
             <input
               type="text"
               placeholder="Search users..."
@@ -108,13 +131,13 @@ const UserManagement = () => {
             />
           </div>
           <button className="user-management-btn user-management-btn-export">
-            <i className="user-management-icon-export"></i> Export to Excel
+            <Download size={15} /> Export
           </button>
           <button 
             className="user-management-btn user-management-btn-add" 
             onClick={() => setShowAddUserForm(true)}
           >
-            <i className="user-management-icon-add"></i> Add New User
+            <UserPlus size={15} /> Add User
           </button>
         </div>
       </div>
@@ -144,7 +167,7 @@ const UserManagement = () => {
                   <td>{user.email}</td>
                   <td>{user.dateCreated}</td>
                   <td className="user-management-role-cell">
-                    <span className={`user-management-role-badge user-management-role-${user.role.toLowerCase()}`}>
+                    <span className={`user-management-role-badge user-management-role-${(user.role || '').toLowerCase().replace(/\s+/g, '-')}`}>
                       {user.role}
                     </span>
                   </td>
@@ -155,14 +178,14 @@ const UserManagement = () => {
                   </td>
                   <td className="user-management-action-cell">
                     <button className="user-management-action-btn user-management-edit-btn" title="Edit">
-                      <i className="user-management-icon-edit"></i>
+                      <Pencil size={15} />
                     </button>
                     <button 
                       className="user-management-action-btn user-management-delete-btn" 
                       title="Delete" 
                       onClick={() => handleDeleteUser(user.id)}
                     >
-                      <i className="user-management-icon-delete"></i>
+                      <Trash2 size={15} />
                     </button>
                   </td>
                 </tr>
@@ -171,7 +194,7 @@ const UserManagement = () => {
               <tr>
                 <td colSpan="7" className="user-management-empty-state">
                   <div className="user-management-empty-content">
-                    <i className="user-management-icon-search-large"></i>
+                    <Search size={28} />
                     <p className="user-management-empty-title">No users found</p>
                     {searchTerm && <p className="user-management-empty-message">Try changing your search term</p>}
                   </div>

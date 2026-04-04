@@ -14,3 +14,19 @@
   font-size: 1.55rem;
   color: #0f172a;
 }
+
+.audit-section {
+  padding: 1rem;
+}
+
+.audit-section-title {
+  margin: 0;
+  font-size: 1.02rem;
+  color: #0f172a;
+}
+
+.audit-section-subtitle {
+  margin: 0.32rem 0 0.9rem;
+  color: #64748b;
+  font-size: 0.84rem;
+}
