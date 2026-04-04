@@ -12,11 +12,11 @@ const SidebarComponent = ({ isCollapsed, toggleSidebar }) => {
 
   const primaryMenu = [
     { label: "Dashboard", path: "/dashboard", icon: <FiHome size={18} /> },
-    { label: "Template Library", path: "/template-library", icon: <FiLayers size={18} /> },
     { label: "Users", path: "/users", icon: <FiUsers size={18} /> },
+    { label: "View Consents", path: "/view-consents", icon: <FiShield size={18} /> },
+    { label: "Template Library", path: "/template-library", icon: <FiLayers size={18} /> },
     { label: "Audit Logs", path: "/audit-logs", icon: <FiClipboard size={18} /> },
     { label: "Reports & Analytics", path: "/reports", icon: <FiBarChart size={18} /> },
-    { label: "View Consents", path: "/view-consents", icon: <FiShield size={18} /> },
     { label: "Customer Support", path: "/customer-support", icon: <FiHeadphones size={18} /> },
   ];
 

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { Download, Filter, RotateCcw, Search } from "lucide-react";
 import consentService from "../services/consentService";
 import "../styles/ViewConsents.css";
 
@@ -25,7 +26,6 @@ const ViewConsent = () => {
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(consents.length / itemsPerPage);
 
   // Fetch consents from the server
   useEffect(() => {
@@ -68,6 +68,21 @@ const ViewConsent = () => {
       (templateFilter === "" || row.template_name === templateFilter)
     );
   });
+
+  const totalPages = Math.max(1, Math.ceil(filteredConsents.length / itemsPerPage));
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter, emailSearch, startDate, endDate, templateFilter]);
+
+  const resetFilters = () => {
+    setSearchTerm("");
+    setStatusFilter("");
+    setEmailSearch("");
+    setStartDate("");
+    setEndDate("");
+    setTemplateFilter("");
+  };
   
 
 
@@ -151,108 +166,157 @@ const ViewConsent = () => {
 
   return (
     <div className="view-consent-container enterprise-page">
-      <h1 className="view-consent-title enterprise-page-title">View Consents</h1>
+      <div className="enterprise-page-header">
+        <h1 className="view-consent-title enterprise-page-title">View Consents</h1>
+        <p className="enterprise-page-subtitle">Search, filter, inspect, and export user consent records with complete visibility.</p>
+      </div>
+
+      <div className="view-consent-summary-cards">
+        <div className="view-consent-summary-card">
+          <span>Total Records</span>
+          <strong>{consents.length}</strong>
+        </div>
+        <div className="view-consent-summary-card">
+          <span>Filtered Records</span>
+          <strong>{filteredConsents.length}</strong>
+        </div>
+        <div className="view-consent-summary-card">
+          <span>Accepted</span>
+          <strong>{filteredConsents.filter((item) => item.consent_status).length}</strong>
+        </div>
+        <div className="view-consent-summary-card">
+          <span>Rejected</span>
+          <strong>{filteredConsents.filter((item) => !item.consent_status).length}</strong>
+        </div>
+      </div>
 
       {/*Search and filter bar*/}
-      <div className="view-consent-filter">
+      <div className="view-consent-toolbar enterprise-panel">
+        <div className="view-consent-toolbar-header">
+          <h2><Filter size={16} /> Filters</h2>
+          <button className="view-consent-reset-btn" onClick={resetFilters}><RotateCcw size={14} /> Reset</button>
+        </div>
 
-        <select
-          value={templateFilter}
-          onChange={(e) => setTemplateFilter(e.target.value)}
-          className="view-consent-dropdown"
-        >
-          <option value="">All Templates</option>
-          {templateNames.map((name, idx) => (
-            <option key={idx} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <div className="view-consent-filter">
 
-        <input
-          type="text"
-          placeholder="Search by Email"
-          value={emailSearch}
-          onChange={(e) => setEmailSearch(e.target.value)}
-          className="view-consent-search"
-        />
+          <select
+            value={templateFilter}
+            onChange={(e) => setTemplateFilter(e.target.value)}
+            className="view-consent-dropdown"
+          >
+            <option value="">All Templates</option>
+            {templateNames.map((name, idx) => (
+              <option key={idx} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
 
-        <input
-          type="text"
-          placeholder="Search by User ID or Category Name"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="view-consent-search"
-        />
+          <div className="view-consent-search-group">
+            <Search size={14} />
+            <input
+              type="text"
+              placeholder="Search by Email"
+              value={emailSearch}
+              onChange={(e) => setEmailSearch(e.target.value)}
+              className="view-consent-search"
+            />
+          </div>
+
+          <div className="view-consent-search-group">
+            <Search size={14} />
+            <input
+              type="text"
+              placeholder="Search by User ID or Category Name"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="view-consent-search"
+            />
+          </div>
         
-        <select value={statusFilter} onChange={handleStatusChange} className="view-consent-dropdown">
-          <option value="">All Statuses</option>
-          <option value="accepted">Accepted</option>
-          <option value="rejected">Rejected</option>
-        </select>
+          <select value={statusFilter} onChange={handleStatusChange} className="view-consent-dropdown">
+            <option value="">All Statuses</option>
+            <option value="accepted">Accepted</option>
+            <option value="rejected">Rejected</option>
+          </select>
 
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className="view-consent-date-filter"
-        />
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="view-consent-date-filter"
+          />
 
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          className="view-consent-date-filter"
-        />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="view-consent-date-filter"
+          />
 
+        </div>
       </div>
 
 
       {/* Export Options */}
       <div className="view-consent-export">
-        <button className="view-consent-export-btn" onClick={exportToCSV}>Export CSV</button>
-        <button className="view-consent-export-btn" onClick={exportToJSON}>Export JSON</button>
+        <button className="view-consent-export-btn" onClick={exportToCSV}><Download size={14} /> Export CSV</button>
+        <button className="view-consent-export-btn" onClick={exportToJSON}><Download size={14} /> Export JSON</button>
       </div>
 
 
       {/*Table for displaying consents*/}
-      <table className="view-consent-table">
-        <thead>
-          <tr>
-            <th>Consent ID</th>
-            <th>User ID</th>
-            <th>Template Name</th>
-            <th>Categories</th>
-            <th>Consent Given</th>
-            <th>Consent Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {filteredConsents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((row, index) => (
-            <tr key={row.id || `consent-${index}`}>
-              <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-              <td>{row.user_id}</td>
-              <td>{row.template_name || "N/A"}</td>
-              <td>{row.category_names}</td>
-              <td>{row.consent_status ? "✅" : "❌"}</td>
-              <td>{new Date(row.consent_date).toLocaleDateString("en-GB")}</td>
-              <td>
-                <button className="view-consent-btn">Modify</button>
-                <button className="view-consent-btn view-consent-view-btn" onClick={() => openModal(row)}>View</button>
-              </td>
+      <div className="view-consent-table-wrapper enterprise-panel">
+        <table className="view-consent-table">
+          <thead>
+            <tr>
+              <th>Consent ID</th>
+              <th>User ID</th>
+              <th>Template Name</th>
+              <th>Categories</th>
+              <th>Consent Status</th>
+              <th>Consent Date</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
 
-      </table>
+          <tbody>
+            {filteredConsents.length > 0 ? (
+              filteredConsents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((row, index) => (
+                <tr key={row.id || `consent-${index}`}>
+                  <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                  <td>{row.user_id}</td>
+                  <td>{row.template_name || "N/A"}</td>
+                  <td>{row.category_names}</td>
+                  <td>
+                    <span className={`view-consent-status-badge ${row.consent_status ? "accepted" : "rejected"}`}>
+                      {row.consent_status ? "Accepted" : "Rejected"}
+                    </span>
+                  </td>
+                  <td>{new Date(row.consent_date).toLocaleDateString("en-GB")}</td>
+                  <td>
+                    <div className="view-consent-actions-cell">
+                      <button className="view-consent-btn">Modify</button>
+                      <button className="view-consent-btn view-consent-view-btn" onClick={() => openModal(row)}>View</button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="view-consent-empty">No consents found for the selected filters.</td>
+              </tr>
+            )}
+          </tbody>
+
+        </table>
+      </div>
 
 
       {/*Modal for viewing consent details*/}
       {isModalOpen && selectedConsent && (
-        <div className="view-consent-modal">
-          <div className="view-consent-modal-content">
+        <div className="view-consent-modal" onClick={closeModal}>
+          <div className="view-consent-modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="view-consent-close" onClick={closeModal}>&times;</span>
             <h2>Consent Details</h2>
             <p><strong>Consent ID:</strong> {selectedConsent.consent_id}</p>

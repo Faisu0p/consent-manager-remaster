@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Headset, ListChecks, Clock3, CircleCheck, Search, RotateCcw } from "lucide-react";
 import dsrService from "../services/dsrService";
 import "../styles/CustomerSupport.css";
 
@@ -129,26 +130,45 @@ const CustomerSupport = () => {
       (request.request_type && request.request_type.toLowerCase().includes(searchLower))
     );
   });
+
+  const pendingCount = dsrRequests.filter((request) => request.request_status?.toLowerCase() === "pending").length;
+  const inProgressCount = dsrRequests.filter((request) => request.request_status?.toLowerCase() === "in progress").length;
+  const completedCount = dsrRequests.filter((request) => request.request_status?.toLowerCase() === "completed").length;
+
+  const clearSearch = () => setSearchTerm("");
   
 
   return (
     <div className="cs-container enterprise-page">
-      <header className="cs-header">
+      <div className="cs-header enterprise-page-header">
         <div className="cs-header-content">
-          <h1>Customer Support Portal</h1>
-          <p>Manage Data Subject Requests (DSR)</p>
+          <h1><Headset size={18} /> Customer Support</h1>
+          <p>Manage Data Subject Requests (DSR), update statuses, and send responses from one workspace.</p>
         </div>
-      </header>
+
+        <div className="cs-summary-cards">
+          <div className="cs-summary-card"><ListChecks size={15} /> {dsrRequests.length} total</div>
+          <div className="cs-summary-card"><Clock3 size={15} /> {pendingCount} pending</div>
+          <div className="cs-summary-card"><Search size={15} /> {inProgressCount} in progress</div>
+          <div className="cs-summary-card"><CircleCheck size={15} /> {completedCount} completed</div>
+        </div>
+      </div>
       
       <div className="cs-dashboard">
         <div className="cs-sidebar">
           <div className="cs-search">
+            <Search size={14} className="cs-search-icon" />
             <input
               type="text"
               placeholder="Search requests..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {searchTerm && (
+              <button className="cs-clear-search" onClick={clearSearch} title="Clear search">
+                <RotateCcw size={14} />
+              </button>
+            )}
           </div>
           
           <div className="cs-tabs">
