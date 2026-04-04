@@ -1,8 +1,70 @@
 .consent-trends {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+  background: #ffffff;
+  padding: 0.9rem;
+  border-radius: 14px;
+  border: 1px solid #dbe3ef;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.consent-trends-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.consent-trends-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.consent-trends-kpis {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.consent-trends-kpis span {
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #f8fbff;
+  color: #475569;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.28rem 0.5rem;
+}
+
+.consent-trends-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 0.8rem;
+}
+
+.consent-trends-chart {
+  border: 1px solid #e2e8f3;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 0.7rem;
+}
+
+.consent-trends-chart h3 {
+  margin: 0 0 0.5rem;
+  color: #334155;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.consent-trends-loading {
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+@media screen and (max-width: 980px) {
+  .consent-trends-layout {
+    grid-template-columns: 1fr;
   }
+}
   

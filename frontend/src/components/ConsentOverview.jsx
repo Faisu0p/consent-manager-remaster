@@ -1,36 +1,59 @@
 import React from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import "../styles/ConsentOverview.css"; // Import styling
 
-const ConsentOverview = () => {
-    // Static demo data (will be replaced with API data later)
+const ConsentOverview = ({ summary, loading }) => {
     const data = [
-        { name: "Granted", value: 70 },
-        { name: "Revoked", value: 30 },
+                { name: "Granted", value: summary?.granted || 0 },
+                { name: "Revoked", value: summary?.revoked || 0 },
     ];
 
-    const COLORS = ["#4CAF50", "#F44336"]; // Green for granted, red for revoked
+        const COLORS = ["#0f766e", "#dc2626"];
 
     return (
         <div className="consent-overview">
             <h3>Consent Overview</h3>
-            <PieChart width={250} height={250}>
-                <Pie 
-                    data={data} 
-                    cx="50%" 
-                    cy="50%" 
-                    innerRadius={50} 
-                    outerRadius={80} 
-                    fill="#8884d8"
-                    dataKey="value"
-                >
-                    {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                    ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-            </PieChart>
+                        {loading ? (
+                            <p className="consent-overview-loading">Loading chart data...</p>
+                        ) : (
+                            <>
+                                <div className="consent-overview-chart-wrap">
+                                    <ResponsiveContainer width="100%" height={220}>
+                                        <PieChart>
+                                            <Pie
+                                                data={data}
+                                                cx="50%"
+                                                cy="50%"
+                                                innerRadius={58}
+                                                outerRadius={88}
+                                                dataKey="value"
+                                                stroke="none"
+                                            >
+                                                {data.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+
+                                <div className="consent-overview-stats">
+                                    <div>
+                                        <span>Granted</span>
+                                        <strong>{summary?.granted || 0}</strong>
+                                    </div>
+                                    <div>
+                                        <span>Revoked</span>
+                                        <strong>{summary?.revoked || 0}</strong>
+                                    </div>
+                                    <div>
+                                        <span>Consent Rate</span>
+                                        <strong>{summary?.consentRate || 0}%</strong>
+                                    </div>
+                                </div>
+                            </>
+                        )}
         </div>
     );
 };

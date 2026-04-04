@@ -1,18 +1,48 @@
 .compliance-status {
     background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 0.85rem;
+    border-radius: 14px;
+    border: 1px solid #dbe3ef;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    text-align: left;
 }
 
-.compliant {
-    color: #4CAF50;
+.compliance-status h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    color: #0f172a;
 }
 
-.non-compliant {
-    color: #F44336;
+.compliance-status-score {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.compliance-status-label {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.compliance-status small {
+    color: #64748b;
+    font-size: 0.76rem;
+}
+
+.compliance-status-loading {
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+.compliance-status.compliant {
+    color: #0f766e;
+}
+
+.compliance-status.attention {
+    color: #b45309;
+}
+
+.compliance-status.non-compliant {
+    color: #dc2626;
 }

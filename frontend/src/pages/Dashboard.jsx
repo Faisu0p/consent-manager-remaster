@@ -1,39 +1,46 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Dashboard.css"; // Use common styles
 import UserGrid from "../components/UserTile";
-import { getAllUsers } from "../services/userServices";
 import ConsentOverview from "../components/ConsentOverview";
 import RecentActivity from "../components/RecentActivity";
 import AnalyticsReports from "../components/AnalyticsReports";
 import QuickActions from "../components/QuickActions";
 import ComplianceStatus from "../components/ComplianceStatus";
+import { fetchDashboardAnalytics } from "../services/analyticsService";
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
+  const [summary, setSummary] = useState(null);
+  const [dailyTrend, setDailyTrend] = useState([]);
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [compliance, setCompliance] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const loadDashboard = async () => {
       try {
-        const data = await getAllUsers();
+        const data = await fetchDashboardAnalytics();
 
-        // Map API response to match expected format
-        const formattedUsers = data.map((user) => ({
+        const formattedUsers = data.users.map((user) => ({
           id: user.id,
           name: user.username,
           role: user.role_name,
         }));
 
         setUsers(formattedUsers);
+        setSummary(data.summary);
+        setDailyTrend(data.dailyTrend);
+        setRecentActivities(data.recentActivities);
+        setCompliance(data.compliance);
       } catch (err) {
-        setError("Failed to load users.");
+        setError("Failed to load dashboard data.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    loadDashboard();
   }, []);
 
   return (
@@ -45,10 +52,10 @@ const Dashboard = () => {
         </div>
 
         <div className="dashboard-grid">
-          <ConsentOverview />
-          <AnalyticsReports />
-          <RecentActivity />
-          <ComplianceStatus />
+          <ConsentOverview summary={summary} loading={loading} />
+          <AnalyticsReports trendData={dailyTrend} loading={loading} />
+          <RecentActivity activities={recentActivities} loading={loading} />
+          <ComplianceStatus compliance={compliance} summary={summary} loading={loading} />
           {/* <QuickActions /> */}
         </div>
 
