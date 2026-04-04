@@ -18,7 +18,10 @@ const authMiddleware = (requiredRoles = []) => {
                 if (!decoded.role) {
                     return res.status(403).json({ error: "Access denied. Role not assigned." });
                 }
-                if (!requiredRoles.includes(decoded.role)) {
+                const normalizedRequiredRoles = requiredRoles.map((role) => String(role).toLowerCase());
+                const normalizedUserRole = String(decoded.role).toLowerCase();
+
+                if (!normalizedRequiredRoles.includes(normalizedUserRole)) {
                     return res.status(403).json({ error: "Access denied. Insufficient permissions." });
                 }
             }
