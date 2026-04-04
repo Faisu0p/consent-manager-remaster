@@ -1,6 +1,5 @@
 import bannerTemplateModel from "../models/bannerTemplateModel.js";
 import consentModel from "../models/consentModel.js";
-import bcrypt from "bcryptjs";
 
 const getFullBannerTemplateById = async (req, res) => {
     try {
@@ -59,11 +58,11 @@ const registerAndStoreConsent = async (req, res) => {
             return res.status(400).json({ error: "Invalid username" });
         }
         
-        // Require either email OR phone, not necessarily both
-        if ((!email && !phone) || 
-            (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || 
-            (phone && !/^\d{10}$/.test(phone))) {
-            return res.status(400).json({ error: "Either valid email or valid phone is required" });
+        // Current consent_users schema supports only email identity.
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({
+                error: "Valid email is required. Phone-only consent is not supported by current database schema."
+            });
         }
         
         if (typeof given !== "boolean" || 
@@ -116,17 +115,34 @@ const generateConsentScript = async (req, res) => {
     try {
         const { templateId } = req.params;
         const { lang } = req.query; // Get selected language from query params
+        const parsedTemplateId = Number.parseInt(templateId, 10);
 
-        let finalTemplateId = templateId; // Default template ID
+        if (Number.isNaN(parsedTemplateId)) {
+            return res.status(400).send("Invalid template ID");
+        }
+
+        const apiBaseUrl = `${req.protocol}://${req.get("host")}`;
+
+        let finalTemplateId = parsedTemplateId; // Default template ID
+        let availableLanguages = [];
         
-        // Fetch available languages for this template
-        const availableLanguages = await bannerTemplateModel.getAvailableLanguages(templateId);
+        // Language mapping is optional. If mapping tables are unavailable, continue with default template.
+        try {
+            availableLanguages = await bannerTemplateModel.getAvailableLanguages(parsedTemplateId);
+        } catch (languageError) {
+            availableLanguages = [];
+            console.warn("Language mapping unavailable, continuing without translations:", languageError.message);
+        }
 
         if (lang) {
-            // Fetch translated template ID
-            const languageMapping = await bannerTemplateModel.getTemplateIdByLanguage(templateId, lang);
-            if (languageMapping) {
-                finalTemplateId = languageMapping.template_id; // Use translated template ID
+            try {
+                // Fetch translated template ID
+                const languageMapping = await bannerTemplateModel.getTemplateIdByLanguage(parsedTemplateId, lang);
+                if (languageMapping) {
+                    finalTemplateId = languageMapping.template_id; // Use translated template ID
+                }
+            } catch (languageError) {
+                console.warn("Failed to resolve translated template. Using default template:", languageError.message);
             }
         }
 
@@ -610,7 +626,7 @@ window.saveCredentials = function() {
 
     console.log("Sending request data:", requestData); // Debugging output
 
-    fetch("http://localhost:5000/api/register-and-store-consent", {
+    fetch("${apiBaseUrl}/api/register-and-store-consent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData)

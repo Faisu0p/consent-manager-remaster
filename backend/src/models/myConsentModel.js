@@ -45,9 +45,7 @@ const myConsentModel = {
             .request()
             .input("user_id", sql.Int, userId)
             .query(`
-                SELECT phone
-                FROM consent_users
-                WHERE id = @user_id;
+                SELECT CAST(NULL AS VARCHAR(20)) AS phone;
             `);
 
         return result.recordset;
@@ -102,9 +100,9 @@ const myConsentModel = {
             .request()
             .input("user_id", sql.Int, userId)
             .query(`
-                SELECT DISTINCT cc.id AS category_id, 
+                SELECT cc.id AS category_id, 
                                 cc.name AS category_name, 
-                                cc.description AS category_description, 
+                                CAST(cc.description AS NVARCHAR(MAX)) AS category_description, 
                                 cc.is_required
                 FROM consent_categories cc
                 WHERE cc.template_id IN (
@@ -127,10 +125,10 @@ const myConsentModel = {
             .request()
             .input("user_id", sql.Int, userId)
             .query(`
-                SELECT DISTINCT cc.id AS category_id, 
+                SELECT cc.id AS category_id, 
                                 sc.id AS subcategory_id, 
                                 sc.name AS subcategory_name, 
-                                sc.description AS subcategory_description
+                                CAST(sc.description AS NVARCHAR(MAX)) AS subcategory_description
                 FROM consent_categories cc
                 JOIN consent_subcategories sc ON cc.id = sc.category_id
                 WHERE cc.id IN (SELECT category_id FROM consent_selected_categories WHERE consent_id = @user_id);

@@ -13,7 +13,7 @@ const consentUserapiModel = {
         if (!pool) throw new Error("Database connection failed");
     
         const result = await pool.request().query(`
-            SELECT id, email, username, phone FROM consent_users
+            SELECT id, email, NULL AS username, NULL AS phone FROM consent_users
         `);
     
         return result.recordset;
@@ -27,7 +27,7 @@ const consentUserapiModel = {
         const result = await pool.request()
             .input("email", sql.NVarChar, email)
             .query(`
-                SELECT id, email, username, phone
+                SELECT id, email, NULL AS username, NULL AS phone
                 FROM consent_users
                 WHERE email = @email
             `);
@@ -37,18 +37,7 @@ const consentUserapiModel = {
 
     // ✅ Get user details by phone number
     async getUserByPhone(phone) {
-        const pool = await connectDB();
-        if (!pool) throw new Error("Database connection failed");
-
-        const result = await pool.request()
-            .input("phone", sql.NVarChar, phone)
-            .query(`
-                SELECT id, email, username, phone
-                FROM consent_users
-                WHERE phone = @phone
-            `);
-
-        return result.recordset[0] || null;
+        return null;
     },
 
     // ✅ Get user details by ID
@@ -59,7 +48,7 @@ const consentUserapiModel = {
         const result = await pool.request()
             .input("id", sql.Int, id)
             .query(`
-                SELECT id, email, username, phone
+                SELECT id, email, NULL AS username, NULL AS phone
                 FROM consent_users
                 WHERE id = @id
             `);
@@ -69,18 +58,7 @@ const consentUserapiModel = {
 
     // ✅ Get user details by username
     async getUserByUsername(username) {
-        const pool = await connectDB();
-        if (!pool) throw new Error("Database connection failed");
-
-        const result = await pool.request()
-            .input("username", sql.NVarChar, username)
-            .query(`
-                SELECT id, email, username, phone
-                FROM consent_users
-                WHERE username = @username
-            `);
-
-        return result.recordset[0] || null;
+        return null;
     },
     
 
@@ -122,34 +100,7 @@ async getUserConsentDetailsByEmail(email) {
 
 // Get user consent details by phone number
 async getUserConsentDetailsByPhone(phone) {
-    const pool = await connectDB();
-    try {
-        const request = pool.request();
-        request.input("phone", phone);
-
-        const result = await request.query(`
-            -- Fetch user consent details by phone number
-            SELECT 
-                cu.phone, 
-                bt.name AS template_name, 
-                STRING_AGG(cc.name, ', ') AS selected_categories, 
-                c.given AS consent_given, 
-                c.timestamp
-            FROM consent_users cu
-            INNER JOIN consents c ON cu.id = c.consent_user_id
-            LEFT JOIN consent_selected_categories csc ON c.id = csc.consent_id
-            LEFT JOIN consent_categories cc ON csc.category_id = cc.id
-            INNER JOIN banner_templates bt ON cc.template_id = bt.id
-            WHERE cu.phone = @phone
-            GROUP BY cu.phone, bt.name, c.given, c.timestamp;
-        `);
-
-        return result.recordset;
-
-    } catch (err) {
-        console.error("Error fetching user consent details:", err);
-        throw err;
-    }
+    return [];
 },
 
 

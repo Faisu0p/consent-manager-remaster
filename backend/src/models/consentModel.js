@@ -1,5 +1,6 @@
 import sql from "mssql";
 import connectDB from "../config/db.js";
+import bcrypt from "bcryptjs";
 
 const consentModel = {
     // Check if a user exists by email
@@ -20,19 +21,25 @@ const consentModel = {
         }
     },
 
-    // Create a new consent user (with username, email, and phone)
+    // Create a new consent user in current schema (email + password)
     async createConsentUser(username, email, phone) {
         try {
             const pool = await connectDB();
             if (!pool) throw new Error("Database connection failed");
 
+            if (!email) {
+                throw new Error("Email is required to create consent user");
+            }
+
+            const seed = `${username || email}:${Date.now()}`;
+            const passwordHash = await bcrypt.hash(seed, 10);
+
             const result = await pool
                 .request()
-                .input("username", sql.VarChar, username)
                 .input("email", sql.VarChar, email)
-                .input("phone", sql.VarChar, phone)
+                .input("password", sql.VarChar, passwordHash)
                 .query(
-                    "INSERT INTO consent_users (username, email, phone) OUTPUT INSERTED.id VALUES (@username, @email, @phone)"
+                    "INSERT INTO consent_users (email, password) OUTPUT INSERTED.id VALUES (@email, @password)"
                 );
 
             return result.recordset[0].id;
@@ -92,20 +99,22 @@ const consentModel = {
         }
     },
 
-    // Add this function to find a user by either email or phone
+    // Find user by email. Phone lookup is not supported by current consent_users schema.
 async getConsentUserByEmailOrPhone(email, phone) {
     try {
         const pool = await connectDB();
         if (!pool) throw new Error("Database connection failed");
 
+            if (!email) {
+                return null;
+            }
+
         const result = await pool
             .request()
-            .input("email", sql.VarChar, email || '')
-            .input("phone", sql.VarChar, phone || '')
+                .input("email", sql.VarChar, email)
             .query(`
                 SELECT id FROM consent_users 
-                WHERE (email = @email AND @email != '') 
-                   OR (phone = @phone AND @phone != '')
+                    WHERE email = @email
             `);
 
         return result.recordset.length > 0 ? result.recordset[0] : null;

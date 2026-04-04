@@ -47,6 +47,7 @@
 
 
 export const getEmbedScript = (req, res) => {
+    const consentManagerUiUrl = process.env.CONSENT_MANAGER_UI_URL || "http://localhost:5173";
     const script = `
         (function () {
             const interval = setInterval(() => {
@@ -65,7 +66,7 @@ export const getEmbedScript = (req, res) => {
                         const userId = getCookie("userId");
 
                         if (userLoggedIn === "true" && userId) {
-                            const popupUrl = "http://localhost:5173/my-consent?userId=" + encodeURIComponent(userId);
+                            const popupUrl = "${consentManagerUiUrl}/my-consent?userId=" + encodeURIComponent(userId);
 
                             // Calculate center position for better UI experience
                             const width = 600, height = 700;
