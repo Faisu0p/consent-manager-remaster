@@ -238,7 +238,10 @@ useEffect(() => {
       {/* Header */}
       <header className="myconsent-portal-header">
         <div className="myconsent-portal-header-content">
-          <img src="https://www.consentmanager.net/en/wp-content/uploads/2020/12/RGB_Consentmanager-Bildmarke.jpg" alt="Logo" className="myconsent-portal-logo" />
+          <div className="myconsent-portal-logo-block" aria-label="Lykaa logo">
+            <div className="myconsent-portal-logo-wordmark">LYKAA</div>
+            <span className="myconsent-portal-logo-powered">Powered by Konsento</span>
+          </div>
           <div className="myconsent-portal-text">
             <h1 className="myconsent-portal-title">Consent Lifecycle Status</h1>
             <p className="myconsent-portal-subtitle">

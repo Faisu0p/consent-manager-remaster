@@ -813,15 +813,18 @@ window.saveCredentials = function() {
                                 border-top: 1px solid #e0e0e0;
                                 background: #f8f9fa;
                             ">
-                                <!-- SVG Logo on the left -->
+                                <!-- Brand mark on the left -->
                                 <div class="cookie-portal-logo-container" style="
                                     display: flex;
-                                    align-items: center;
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    gap: 4px;
                                 ">
-                                    <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="100" height="30" rx="5" fill="#2e75b7"/>
-                                        <text x="50%" y="50%" text-anchor="middle" dy=".35em" fill="white" font-size="14" font-family="Arial, sans-serif">Your Logo</text>
+                                    <svg width="110" height="30" viewBox="0 0 110 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="110" height="30" rx="8" fill="#fff1f6"/>
+                                        <text x="55" y="19" text-anchor="middle" fill="#e91e63" font-size="18" font-weight="700" font-family="Arial, Helvetica, sans-serif">LYKAA</text>
                                     </svg>
+                                    <span style="font-size: 11px; color: #6b7280; font-weight: 600; letter-spacing: 0.02em;">Powered by Konsento</span>
                                 </div>
 
 
