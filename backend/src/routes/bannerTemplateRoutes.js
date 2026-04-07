@@ -162,6 +162,16 @@ router.get(
     bannerTemplateController.getEnglishBannerTemplates
 );
 
+router.get(
+    "/versions/:familyId",
+    bannerTemplateController.getTemplateVersionHistory
+);
+
+router.post(
+    "/versions/create-from/:templateId",
+    bannerTemplateController.createVersionFromExisting
+);
+
 
 
 export default router;

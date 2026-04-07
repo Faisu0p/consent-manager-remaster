@@ -22,7 +22,12 @@ const bannerTemplateController = {
                 template.buttonAcceptText,
                 template.buttonRejectText,
                 template.buttonConfigureText,
-                template.language_code
+                template.language_code,
+                {
+                    status: "published",
+                    changeNote: template.change_note || "Initial published version",
+                    createdBy: template.created_by || null,
+                }
             );
 
             if (template.parent_template_id && template.parent_template_id !== "null") {
@@ -85,7 +90,15 @@ const bannerTemplateController = {
             }
 
             // Step 7: Respond with success
-            res.status(201).json({ message: "Banner template and related data created successfully", templateId });
+            const createdTemplate = await bannerTemplateModel.getBannerTemplateById(templateId);
+
+            res.status(201).json({
+                message: "Banner template and related data created successfully",
+                templateId,
+                templateFamilyId: createdTemplate?.template_family_id || null,
+                versionNumber: createdTemplate?.version_number || 1,
+                status: createdTemplate?.status || "published",
+            });
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: "Server error" });
@@ -171,7 +184,18 @@ const bannerTemplateController = {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { name, mainText, infoParagraph, headerText, buttonAcceptText, buttonRejectText, buttonConfigureText, language_code } = req.body;
+        const {
+            name,
+            mainText,
+            infoParagraph,
+            headerText,
+            buttonAcceptText,
+            buttonRejectText,
+            buttonConfigureText,
+            language_code,
+            change_note,
+            created_by,
+        } = req.body;
 
         try {
             // Create the banner template
@@ -183,10 +207,23 @@ const bannerTemplateController = {
                 buttonAcceptText, 
                 buttonRejectText, 
                 buttonConfigureText,
-                language_code
+                language_code,
+                {
+                    status: "published",
+                    changeNote: change_note || "Initial published version",
+                    createdBy: created_by || null,
+                }
             );
 
-            res.status(201).json({ message: "Banner template created successfully", templateId });
+            const createdTemplate = await bannerTemplateModel.getBannerTemplateById(templateId);
+
+            res.status(201).json({
+                message: "Banner template created successfully",
+                templateId,
+                templateFamilyId: createdTemplate?.template_family_id || null,
+                versionNumber: createdTemplate?.version_number || 1,
+                status: createdTemplate?.status || "published",
+            });
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: "Server error" });
@@ -349,6 +386,110 @@ const bannerTemplateController = {
         try {
             const englishTemplates = await bannerTemplateModel.getEnglishBannerTemplates();
             res.json(englishTemplates);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Server error" });
+        }
+    },
+
+    async getTemplateVersionHistory(req, res) {
+        const { familyId } = req.params;
+
+        try {
+            const history = await bannerTemplateModel.getVersionHistoryByFamilyId(parseInt(familyId, 10));
+            res.json({ versions: history });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: "Server error" });
+        }
+    },
+
+    async createVersionFromExisting(req, res) {
+        const { templateId } = req.params;
+        const { status, changeNote, createdBy } = req.body || {};
+
+        try {
+            const sourceTemplate = await bannerTemplateModel.getBannerTemplateById(parseInt(templateId, 10));
+            if (!sourceTemplate) {
+                return res.status(404).json({ error: "Template version not found" });
+            }
+
+            const sourcePortalRows = await bannerTemplateModel.getConsentPortalByTemplateId(sourceTemplate.id);
+            const sourcePortal = sourcePortalRows.length > 0 ? sourcePortalRows[0] : null;
+            const sourcePartners = await bannerTemplateModel.getPartners(sourceTemplate.id);
+
+            const sourceCategories = await bannerTemplateModel.getConsentCategories(sourceTemplate.id);
+            const sourceCategoriesWithSubs = await Promise.all(
+                sourceCategories.map(async (category) => ({
+                    ...category,
+                    subcategories: await bannerTemplateModel.getConsentSubcategories(category.id),
+                }))
+            );
+
+            const targetStatus = ["draft", "published", "archived"].includes(status)
+                ? status
+                : "published";
+
+            const newTemplateVersionId = await bannerTemplateModel.createBannerTemplate(
+                sourceTemplate.name,
+                sourceTemplate.main_text,
+                sourceTemplate.info_paragraph,
+                sourceTemplate.header_text,
+                sourceTemplate.button_accept_text,
+                sourceTemplate.button_reject_text,
+                sourceTemplate.button_configure_text,
+                sourceTemplate.language_code,
+                {
+                    templateFamilyId: sourceTemplate.template_family_id || null,
+                    previousVersionId: sourceTemplate.id,
+                    status: targetStatus,
+                    changeNote: changeNote || `Created from version ${sourceTemplate.version_number || sourceTemplate.id}`,
+                    createdBy: createdBy || null,
+                }
+            );
+
+            if (sourcePortal) {
+                await bannerTemplateModel.createConsentPortal(
+                    newTemplateVersionId,
+                    sourcePortal.upper_text,
+                    sourcePortal.lower_text
+                );
+            }
+
+            for (const partner of sourcePartners) {
+                await bannerTemplateModel.createPartner(
+                    newTemplateVersionId,
+                    partner.name,
+                    partner.is_blocked
+                );
+            }
+
+            for (const category of sourceCategoriesWithSubs) {
+                const newCategoryId = await bannerTemplateModel.createConsentCategory(
+                    newTemplateVersionId,
+                    category.name,
+                    category.description,
+                    Boolean(category.is_required)
+                );
+
+                for (const subcategory of category.subcategories || []) {
+                    await bannerTemplateModel.createConsentSubcategory(
+                        newCategoryId,
+                        subcategory.name,
+                        subcategory.description
+                    );
+                }
+            }
+
+            const createdTemplate = await bannerTemplateModel.getBannerTemplateById(newTemplateVersionId);
+
+            res.status(201).json({
+                message: "New version created from existing version successfully",
+                templateId: newTemplateVersionId,
+                templateFamilyId: createdTemplate?.template_family_id || null,
+                versionNumber: createdTemplate?.version_number || null,
+                status: createdTemplate?.status || targetStatus,
+            });
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: "Server error" });

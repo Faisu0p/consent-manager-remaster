@@ -7,6 +7,10 @@ const ModifyBanner = () => {
 
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [versionHistory, setVersionHistory] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [changeNote, setChangeNote] = useState("Modified template version");
+  const [createdBy, setCreatedBy] = useState("admin");
 
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("");
@@ -16,25 +20,54 @@ const ModifyBanner = () => {
   const [subCategoryName, setSubCategoryName] = useState("");
   const [subCategoryDescription, setSubCategoryDescription] = useState("");
 
-  useEffect(() => {
-    const fetchTemplates = async () => {
-      try {
-        const response = await bannerService.getAllFullBannerTemplates();
-        const filteredTemplates = response.templates.map((template) => ({
-          id: template.id,
-          name: template.name,
-          upper_text: template.portal?.upper_text || "",
-          lower_text: template.portal?.lower_text || "",
-          categories: template.categories || []
-        }));
-  
-        setTemplates(filteredTemplates);
-        console.log("Filtered Templates:", filteredTemplates);
-      } catch (error) {
-        console.error("Error fetching templates:", error);
+  const fetchTemplates = async (targetTemplateId = null) => {
+    try {
+      const response = await bannerService.getAllFullBannerTemplates();
+      const filteredTemplates = response.templates.map((template) => ({
+        id: template.id,
+        template_family_id: template.template_family_id,
+        version_number: template.version_number,
+        status: template.status,
+        name: template.name,
+        upper_text: template.portal?.upper_text || "",
+        lower_text: template.portal?.lower_text || "",
+        categories: template.categories || []
+      }));
+
+      setTemplates(filteredTemplates);
+
+      if (targetTemplateId) {
+        const matchedTemplate = filteredTemplates.find((template) => template.id === targetTemplateId);
+        if (matchedTemplate) {
+          setSelectedTemplate(matchedTemplate);
+        }
       }
-    };
-  
+
+      console.log("Filtered Templates:", filteredTemplates);
+    } catch (error) {
+      console.error("Error fetching templates:", error);
+    }
+  };
+
+  const fetchVersionHistory = async (familyId) => {
+    if (!familyId) {
+      setVersionHistory([]);
+      return;
+    }
+
+    setHistoryLoading(true);
+    try {
+      const response = await bannerService.getTemplateVersionHistory(familyId);
+      setVersionHistory(response.versions || []);
+    } catch (error) {
+      console.error("Error fetching version history:", error);
+      setVersionHistory([]);
+    } finally {
+      setHistoryLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchTemplates();
   }, []);
 
@@ -43,6 +76,12 @@ const ModifyBanner = () => {
     const template = templates.find((t) => t.id === parseInt(templateId));
   
     setSelectedTemplate(template || null);
+    setCategories([]);
+    if (template?.template_family_id) {
+      fetchVersionHistory(template.template_family_id);
+    } else {
+      setVersionHistory([]);
+    }
     console.log("Selected Template:", template);
   };
   
@@ -150,13 +189,38 @@ const ModifyBanner = () => {
       // Import the modifyTemplateService
       const response = await modifyTemplateService.modifyBannerTemplate(
         formattedData.templateId, 
-        formattedData.categories
+        formattedData.categories,
+        changeNote,
+        createdBy
       );
       console.log("Server response:", response);
       alert("Banner template modified successfully!");
+      await fetchTemplates(response.templateId || null);
+      if (response.templateFamilyId) {
+        await fetchVersionHistory(response.templateFamilyId);
+      }
     } catch (error) {
       console.error("Error saving preferences:", error);
       alert("Failed to save preferences. Please try again.");
+    }
+  };
+
+  const handleRestoreVersion = async (templateVersionId, versionNumber) => {
+    try {
+      const response = await bannerService.createVersionFromTemplate(templateVersionId, {
+        status: "published",
+        changeNote: `Rollback from version ${versionNumber}`,
+        createdBy,
+      });
+
+      alert(`Rollback successful. New version v${response.versionNumber} is now published.`);
+      await fetchTemplates(response.templateId || null);
+      if (response.templateFamilyId) {
+        await fetchVersionHistory(response.templateFamilyId);
+      }
+    } catch (error) {
+      console.error("Error restoring version:", error);
+      alert("Failed to restore version. Please try again.");
     }
   };
   
@@ -181,9 +245,29 @@ const ModifyBanner = () => {
           {templates.map((template) => (
             <option key={template.id} value={template.id}>
               {template.name}
+              {template.version_number ? ` (v${template.version_number})` : ""}
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="modify-banner-versioning-controls">
+        <label htmlFor="change-note-input">Change Note:</label>
+        <textarea
+          id="change-note-input"
+          value={changeNote}
+          onChange={(e) => setChangeNote(e.target.value)}
+          placeholder="Describe what changed in this version"
+        />
+
+        <label htmlFor="created-by-input">Modified By:</label>
+        <input
+          id="created-by-input"
+          type="text"
+          value={createdBy}
+          onChange={(e) => setCreatedBy(e.target.value)}
+          placeholder="e.g. admin"
+        />
       </div>
       
       {/* Layout with Two Sections */}
@@ -261,6 +345,11 @@ const ModifyBanner = () => {
         {/* Right Section - Banner Preview */}
         <div className="modify-banner-right">
           <h2>Banner Preview</h2>
+          {selectedTemplate?.version_number && (
+            <p className="modify-banner-version-badge">
+              Active Version: v{selectedTemplate.version_number} ({selectedTemplate.status || "published"})
+            </p>
+          )}
 
             <div className="modify-banner-portal-banner">
 
@@ -325,6 +414,33 @@ const ModifyBanner = () => {
                 </div>
               </div>
 
+            </div>
+
+            <div className="modify-banner-version-history">
+              <h3>Version History</h3>
+              {historyLoading ? (
+                <p>Loading versions...</p>
+              ) : versionHistory.length === 0 ? (
+                <p>No version history available.</p>
+              ) : (
+                <ul>
+                  {versionHistory.map((version) => (
+                    <li key={version.id}>
+                      <div>
+                        <strong>v{version.version_number}</strong>
+                        <span> - {version.status}</span>
+                        {version.change_note ? <p>{version.change_note}</p> : null}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRestoreVersion(version.id, version.version_number)}
+                      >
+                        Restore as New Version
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
         </div>
 

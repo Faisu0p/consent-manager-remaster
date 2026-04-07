@@ -57,6 +57,7 @@ const ConsentManagement = () => {
             {templates.map((template) => (
               <option key={template.id} value={template.id}>
                 {template.name}
+                {template.version_number ? ` (v${template.version_number})` : ""}
               </option>
             ))}
           </select>

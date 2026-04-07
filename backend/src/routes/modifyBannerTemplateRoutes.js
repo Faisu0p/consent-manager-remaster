@@ -16,6 +16,8 @@ router.put(
         body("categories.*.subcategories").optional().isArray().withMessage("Subcategories must be an array"),
         body("categories.*.subcategories.*.name").optional().notEmpty().withMessage("Subcategory name is required"),
         body("categories.*.subcategories.*.description").optional().notEmpty().withMessage("Subcategory description is required"),
+        body("changeNote").optional().isString().withMessage("changeNote must be text"),
+        body("createdBy").optional().isString().withMessage("createdBy must be text"),
     ],
     // authMiddleware(["Admin"]), // Uncomment when enabling authentication
     modifyTemplateController.modifyBannerTemplate

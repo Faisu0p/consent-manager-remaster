@@ -38,6 +38,32 @@
   border-radius: 10px;
 }
 
+.modify-banner-versioning-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+  max-width: 560px;
+}
+
+.modify-banner-versioning-controls label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.modify-banner-versioning-controls textarea,
+.modify-banner-versioning-controls input {
+  width: 100%;
+  border: 1px solid #ccd6e6;
+  border-radius: 8px;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.84rem;
+}
+
+.modify-banner-versioning-controls textarea {
+  min-height: 72px;
+}
+
 .modify-banner-content {
   display: flex;
   width: 100%;
@@ -151,6 +177,18 @@
   margin-left: 0;
 }
 
+.modify-banner-version-badge {
+  display: inline-block;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
 .modify-banner-portal-banner {
   background: white;
   padding: 0.95rem;
@@ -254,6 +292,56 @@
   font-size: 0.74rem;
   color: #666;
   margin-top: 5px;
+}
+
+.modify-banner-version-history {
+  margin-top: 0.9rem;
+  padding: 0.8rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+.modify-banner-version-history h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.92rem;
+}
+
+.modify-banner-version-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.modify-banner-version-history li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  padding: 0.55rem;
+  background: #fff;
+}
+
+.modify-banner-version-history li p {
+  margin: 0.25rem 0 0;
+  font-size: 0.76rem;
+  color: #64748b;
+}
+
+.modify-banner-version-history button {
+  border: none;
+  border-radius: 7px;
+  padding: 0.42rem 0.62rem;
+  background: #0f766e;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1100px) {

@@ -131,6 +131,24 @@ const bannerService = {
     } catch (error) {
       throw error.response?.data || error.message;
     }
+  },
+
+  getTemplateVersionHistory: async (familyId) => {
+    try {
+      const response = await api.get(`/banner-templates/versions/${familyId}`);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  createVersionFromTemplate: async (templateId, payload = {}) => {
+    try {
+      const response = await api.post(`/banner-templates/versions/create-from/${templateId}`, payload);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error.message;
+    }
   }
 
 };
