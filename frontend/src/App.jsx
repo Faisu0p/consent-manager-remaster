@@ -13,6 +13,8 @@ import MyConsent from "./pages/MyConsent";
 import ModifyBanner from "./pages/ModifyBanner";
 import CustomerSupport from "./pages/CustomerSupport";
 import EmailSuppression from "./pages/EmailSuppression";
+import RetrospectiveConsentCampaign from "./pages/RetrospectiveConsentCampaign";
+import RetrospectiveConsentLanding from "./pages/RetrospectiveConsentLanding";
 
 
 function App() {
@@ -34,9 +36,11 @@ function App() {
         <Route path="modify-banner" element={<ModifyBanner />} />
         <Route path="customer-support" element={<CustomerSupport />} />
         <Route path="email-suppression" element={<EmailSuppression />} />
+        <Route path="retrospective-consent-campaign" element={<RetrospectiveConsentCampaign />} />
       </Route>
 
       <Route path="my-consent" element={<MyConsent />} />
+      <Route path="retrospective-consent" element={<RetrospectiveConsentLanding />} />
 
     </Routes>
   );

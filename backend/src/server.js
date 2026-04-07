@@ -12,6 +12,7 @@ import modifyBannerTemplateRoute from "./routes/modifyBannerTemplateRoutes.js";
 import dsrRequestRoutes from "./routes/dsrRequestRoutes.js";
 import consentUserapiRoutes from "./routes/consentUserapiRoutes.js";
 import emailSuppressionRoutes from "./routes/emailSuppressionRoutes.js";
+import retrospectiveConsentRoutes from "./routes/retrospectiveConsentRoutes.js";
 
 const app = express();
 
@@ -50,6 +51,9 @@ app.use('/api/external', consentUserapiRoutes);
 
 // Routes for email suppression list
 app.use("/api/email-suppressions", emailSuppressionRoutes);
+
+// Routes for retrospective consent campaigns and invite flows
+app.use("/api/retrospective-consent", retrospectiveConsentRoutes);
 
 
 

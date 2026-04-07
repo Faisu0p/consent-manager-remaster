@@ -1,0 +1,101 @@
+.retro-landing-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: radial-gradient(circle at top left, #f0fdfa, #ecfeff 40%, #f8fafc 100%);
+}
+
+.retro-landing-card {
+  width: min(760px, 100%);
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 1rem;
+}
+
+.retro-landing-header h1 {
+  margin: 0.2rem 0;
+}
+
+.retro-landing-client {
+  margin: 0;
+  font-weight: 700;
+  color: #0f766e;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.retro-landing-email {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.retro-landing-consent-switch {
+  display: flex;
+  gap: 1.2rem;
+  font-weight: 600;
+}
+
+.retro-landing-categories {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.retro-landing-category {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  text-align: left;
+  padding: 0.7rem;
+  cursor: pointer;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.retro-landing-category.active {
+  border-color: #0f766e;
+  background: #f0fdfa;
+}
+
+.retro-landing-category:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.retro-landing-submit {
+  border: none;
+  border-radius: 999px;
+  padding: 0.72rem 1.3rem;
+  background: linear-gradient(120deg, #0f766e, #0891b2);
+  color: #fff;
+  width: fit-content;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.retro-landing-success {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.retro-landing-error {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.retro-landing-footer {
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .retro-landing-categories {
+    grid-template-columns: 1fr;
+  }
+}
