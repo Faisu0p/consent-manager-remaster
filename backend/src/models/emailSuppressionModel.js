@@ -21,7 +21,7 @@ const emailSuppressionModel = {
     `);
   },
 
-  async addSuppressedEmail({ email, source = "manual", notes = null }) {
+  async upsertSuppressedEmail({ email, source = "manual", notes = null }) {
     await this.ensureTable();
 
     const pool = await connectDB();
@@ -62,6 +62,10 @@ const emailSuppressionModel = {
       `);
 
     return { alreadyExists: false, record: inserted.recordset[0] };
+  },
+
+  async addSuppressedEmail({ email, source = "manual", notes = null }) {
+    return this.upsertSuppressedEmail({ email, source, notes });
   },
 
   async getAllSuppressedEmails() {

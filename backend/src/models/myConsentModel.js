@@ -1,5 +1,6 @@
 import sql from "mssql";
 import connectDB from "../config/db.js";
+import emailSuppressionModel from "./emailSuppressionModel.js";
 
 const myConsentModel = {
     // Fetch User's Email
@@ -160,6 +161,9 @@ async updateUserConsent(userId, consentGiven, selectedCategories) {
     const pool = await connectDB();
     if (!pool) throw new Error("Database connection failed");
 
+    const normalizedConsent = String(consentGiven || "").trim().toLowerCase();
+    const isConsentRejected = normalizedConsent === "no" || normalizedConsent === "false";
+
     const transaction = pool.transaction();
     await transaction.begin();
 
@@ -199,7 +203,7 @@ async updateUserConsent(userId, consentGiven, selectedCategories) {
                 WHERE consent_user_id = @user_id;
             `);
 
-        if (consentGiven === "No") {
+        if (isConsentRejected) {
             // ✅ If consent is "No", log and delete selected categories
             for (const categoryId of existingCategoryIds) {
                 await pool
@@ -275,6 +279,27 @@ async updateUserConsent(userId, consentGiven, selectedCategories) {
         }
 
         await transaction.commit();
+
+        if (isConsentRejected) {
+            const userResult = await pool
+                .request()
+                .input("user_id", sql.Int, userId)
+                .query(`
+                    SELECT email
+                    FROM consent_users
+                    WHERE id = @user_id;
+                `);
+
+            const rejectedUserEmail = userResult.recordset?.[0]?.email;
+            if (rejectedUserEmail) {
+                await emailSuppressionModel.upsertSuppressedEmail({
+                    email: rejectedUserEmail,
+                    source: "consent-rejection",
+                    notes: "Auto-added from consent rejection",
+                });
+            }
+        }
+
         return { success: true, message: "Consent updated successfully." };
     } catch (error) {
         await transaction.rollback();

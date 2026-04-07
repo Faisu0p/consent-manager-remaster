@@ -1,5 +1,6 @@
 import bannerTemplateModel from "../models/bannerTemplateModel.js";
 import consentModel from "../models/consentModel.js";
+import emailSuppressionModel from "../models/emailSuppressionModel.js";
 
 const getFullBannerTemplateById = async (req, res) => {
     try {
@@ -94,6 +95,14 @@ const registerAndStoreConsent = async (req, res) => {
         // Insert selected categories if consent is given
         if (given && selectedCategories.length > 0) {
             await consentModel.createConsentCategories(consentId, selectedCategories);
+        }
+
+        if (!given && email) {
+            await emailSuppressionModel.upsertSuppressedEmail({
+                email,
+                source: "cookie-consent-rejection",
+                notes: "Auto-added from consent rejection",
+            });
         }
 
         res.status(201).json({
